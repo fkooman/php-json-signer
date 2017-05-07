@@ -21,11 +21,17 @@ require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 use SURFnet\VPN\Signer\Signer;
 
 try {
+    $forceOverwrite = false;
+    foreach ($argv as $arg) {
+        if ('--force' === $arg) {
+            $forceOverwrite = true;
+        }
+    }
     $signer = new Signer(
         sprintf('%s/config', dirname(__DIR__))
     );
 
-    $signer->generate();
+    $signer->init($forceOverwrite);
 } catch (Exception $e) {
     echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }

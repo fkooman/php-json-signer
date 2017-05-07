@@ -43,9 +43,12 @@ class Signer
         $this->dateTime = new DateTime();
     }
 
-    public function generate()
+    public function init($forceOverwrite = false)
     {
         $secretKeyFile = sprintf('%s/%s', $this->configDir, self::SECRET_KEY_FILE);
+        if (self::hasFile($secretKeyFile) && !$forceOverwrite) {
+            throw new RuntimeException(sprintf('"%s" already exists, use "--force" to overwrite', $secretKeyFile));
+        }
         $publicKeyFile = sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE);
 
         $keyPair = \Sodium\crypto_sign_keypair();

@@ -9,9 +9,12 @@ applications for instance discovery purposes.
 
 # Configure 
 
-Generate a key pair:
+Generate a keypair:
 
-    $ php bin/generate.php
+    $ php bin/init.php
+
+If a keypair already exists, an error will be thrown. You can force generating
+a new keypair using the `--force` parameter, or delete the keys first.
 
 # Sign
 
