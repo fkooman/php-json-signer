@@ -43,6 +43,11 @@ class Signer
         $this->dateTime = new DateTime();
     }
 
+    /**
+     * @param bool $forceOverwrite
+     *
+     * @return string
+     */
     public function init($forceOverwrite = false)
     {
         $secretKeyFile = sprintf('%s/%s', $this->configDir, self::SECRET_KEY_FILE);
@@ -52,8 +57,12 @@ class Signer
         $publicKeyFile = sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE);
 
         $keyPair = \Sodium\crypto_sign_keypair();
-        self::writeFile($secretKeyFile, Base64::encode(\Sodium\crypto_sign_secretkey($keyPair)));
-        self::writeFile($publicKeyFile, Base64::encode(\Sodium\crypto_sign_publickey($keyPair)));
+        $encodedPublicKey = Base64::encode(\Sodium\crypto_sign_publickey($keyPair));
+        $encodedSecretKey = Base64::encode(\Sodium\crypto_sign_secretkey($keyPair));
+        self::writeFile($secretKeyFile, $encodedSecretKey);
+        self::writeFile($publicKeyFile, $encodedPublicKey);
+
+        return $encodedPublicKey;
     }
 
     /**

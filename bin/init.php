@@ -31,7 +31,9 @@ try {
         sprintf('%s/config', dirname(__DIR__))
     );
 
-    $signer->init($forceOverwrite);
+    $publicKey = $signer->init($forceOverwrite);
+
+    echo sprintf('Public Key: %s', $publicKey).PHP_EOL;
 } catch (Exception $e) {
     echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }
