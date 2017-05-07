@@ -63,4 +63,38 @@ class SignerTest extends PHPUnit_Framework_TestCase
         file_put_contents($fileName, json_encode($jsonData, JSON_PRETTY_PRINT));
         $this->assertFalse($signer->verify($fileName));
     }
+
+    public function testInit()
+    {
+        $signer = new Signer(
+            sprintf('%s/%s', sys_get_temp_dir(), mt_rand())
+        );
+        $signer->setDateTime(new DateTime('2017-01-01'));
+        $signer->init();
+        $fileName = tempnam(sys_get_temp_dir(), 'tst');
+        file_put_contents($fileName, file_get_contents(sprintf('%s/data/foo.json', __DIR__)));
+        $signer->sign($fileName);
+        $this->assertTrue($signer->verify($fileName));
+        $this->assertSame(
+            [
+                'foo' => 'bar',
+                'seq' => 1,
+                'signed_at' => '2017-01-01 00:00:00',
+            ],
+            json_decode(file_get_contents($fileName), true)
+        );
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testDoubleInit()
+    {
+        $signer = new Signer(
+            sprintf('%s/%s', sys_get_temp_dir(), mt_rand())
+        );
+        $signer->setDateTime(new DateTime('2017-01-01'));
+        $signer->init();
+        $signer->init();
+    }
 }
