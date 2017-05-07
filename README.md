@@ -1,5 +1,5 @@
-This application is used to sign JSON files, which are in turn verified by the
-VPN applications.
+This application is used to sign JSON files that are used by the VPN 
+applications for instance discovery purposes.
 
 # Install 
     
