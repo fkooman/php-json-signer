@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/eduvpn/vpn-disco-signer.svg)](https://travis-ci.org/eduvpn/vpn-disco-signer)
-
 This application is used to sign JSON files that are used by the VPN 
 applications for instance discovery purposes.
 
