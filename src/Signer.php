@@ -174,7 +174,7 @@ class Signer
      */
     private static function jsonEncode(array $jsonData)
     {
-        if (false === $jsonText = json_encode($jsonData, JSON_PRETTY_PRINT)) {
+        if (false === $jsonText = json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) {
             throw new RuntimeException('unable to encode JSON');
         }
 
