@@ -1,10 +1,12 @@
-This application is used to sign JSON files that are used by the VPN 
-applications for instance discovery purposes.
+This application can be used to sign JSON files, by adding some fields that can
+be used to determine their time of signing and the sequence number. The 
+signature is "detached" so no complicated file syntax is needed to store the 
+signature in the file itself.
 
 # Install 
     
-    $ git clone https://github.com/eduvpn/vpn-disco-signer.git
-    $ cd vpn-disco-signer
+    $ git clone https://github.com/fkooman/json-signer.git
+    $ cd json-signer
     $ composer install
 
 # Configure 
@@ -15,6 +17,9 @@ Generate a keypair:
 
 If a keypair already exists, an error will be thrown. You can force generating
 a new keypair using the `--force` parameter, or delete the keys first.
+
+The public and private key are stored in the XDG home data folder, typically
+this will be `${HOME}/.local/share/fkooman-json-signer`.
 
 # Sign
 
@@ -39,6 +44,12 @@ Verify a JSON signature:
 
 It is assumed that the signature file is placed in the same directory, i.e. 
 `instance.json.sig` should be placed in the same directory as `instances.json`.
+
+# Show 
+
+To view the public key that is used to sign the JSON files:
+
+    $ php bin/show-public-key.php
 
 # Implementation
 

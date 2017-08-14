@@ -7,13 +7,13 @@
     ],
     "autoload": {
         "psr-4": {
-            "SURFnet\\VPN\\Signer\\": "src/",
-            "SURFnet\\VPN\\Signer\\Tests\\": "tests/"
+            "fkooman\\JsonSigner\\": "src/",
+            "fkooman\\JsonSigner\\Tests\\": "tests/"
         }
     },
-    "description": "VPN Discovery Signer",
-    "license": "AGPL-3.0",
-    "name": "eduvpn/vpn-disco-signer",
+    "description": "JSON Signer",
+    "license": "MIT",
+    "name": "fkooman/json-signer",
     "require": {
         "dnoegel/php-xdg-base-dir": "^0.1",
         "ext-date": "*",
