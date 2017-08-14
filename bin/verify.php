@@ -22,7 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
+$autoloadFiles = [
+    sprintf('%s/src/autoload.php', dirname(__DIR__)),
+    sprintf('%s/vendor/autoload.php', dirname(__DIR__)),
+];
+
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        require_once $autoloadFile;
+        break;
+    }
+}
 
 use fkooman\JsonSigner\Signer;
 use XdgBaseDir\Xdg;
@@ -34,7 +44,7 @@ try {
 
     $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/fkooman-json-signer', $xdg->getHomeDataDir())
+        sprintf('%s/php-json-signer', $xdg->getHomeDataDir())
     );
 
     if ($signer->verify($argv[1])) {

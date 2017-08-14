@@ -13,7 +13,7 @@
     },
     "description": "JSON Signer",
     "license": "MIT",
-    "name": "fkooman/json-signer",
+    "name": "fkooman/php-json-signer",
     "require": {
         "dnoegel/php-xdg-base-dir": "^0.1",
         "ext-date": "*",

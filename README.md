@@ -5,8 +5,8 @@ signature in the file itself.
 
 # Install 
     
-    $ git clone https://github.com/fkooman/json-signer.git
-    $ cd json-signer
+    $ git clone https://github.com/fkooman/php-json-signer.git
+    $ cd php-json-signer
     $ composer install
 
 # Configure 
@@ -19,7 +19,7 @@ If a keypair already exists, an error will be thrown. You can force generating
 a new keypair using the `--force` parameter, or delete the keys first.
 
 The public and private key are stored in the XDG home data folder, typically
-this will be `${HOME}/.local/share/fkooman-json-signer`.
+this will be `${HOME}/.local/share/php-json-signer`.
 
 # Sign
 
