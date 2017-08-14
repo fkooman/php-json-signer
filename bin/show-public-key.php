@@ -24,7 +24,7 @@ use XdgBaseDir\Xdg;
 try {
     $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
+        sprintf('%s/fkooman-json-signer', $xdg->getHomeDataDir())
     );
     echo $signer->getPublicKey().PHP_EOL;
 } catch (Exception $e) {

@@ -28,7 +28,7 @@ try {
 
     $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
+        sprintf('%s/fkooman-json-signer', $xdg->getHomeDataDir())
     );
 
     if ($signer->verify($argv[1])) {

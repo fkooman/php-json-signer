@@ -31,7 +31,7 @@ try {
 
     $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
+        sprintf('%s/fkooman-json-signer', $xdg->getHomeDataDir())
     );
     $signer->init($optionForce);
 } catch (Exception $e) {
