@@ -25,7 +25,17 @@ this will be `${HOME}/.local/share/fkooman-json-signer`.
 
 Sign a JSON file:
 
-    $ php bin/sign.php instances.json
+    $ echo '{"foo": "bar"}' > foo.json
+    $ php bin/sign.php foo.json
+
+This adds some additional fields:
+
+    $ cat foo.json
+    {
+        "foo": "bar",
+        "seq": 1,
+        "signed_at": "2017-08-14 21:17:39"
+    }
 
 The field `seq` will be incremented by one, or added and set to `1` when it 
 does not yet exist.
@@ -33,17 +43,17 @@ does not yet exist.
 The `signed_at` field will be set to the current date/time (UTC).
 
 A "detached" signature is generated with the extension `.sig`. From the 
-example above there will be a (modified) `instances.json` with the `seq` and
-`signed_at` fields, and a signature file `instances.json.sig`.
+example above there will be a (modified) `foo.json` with the `seq` and
+`signed_at` fields, and a signature file `foo.json.sig`.
  
 # Verify
 
 Verify a JSON signature:
 
-    $ php bin/verify.php instances.json
+    $ php bin/verify.php foo.json
 
 It is assumed that the signature file is placed in the same directory, i.e. 
-`instance.json.sig` should be placed in the same directory as `instances.json`.
+`foo.json.sig` should be placed in the same directory as `foo.json`.
 
 # Show 
 
