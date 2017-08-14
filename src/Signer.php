@@ -118,6 +118,11 @@ class Signer
         return \Sodium\crypto_sign_verify_detached($fileSignature, $jsonText, $publicKey);
     }
 
+    public function getPublicKey()
+    {
+        return self::readFile(sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE));
+    }
+
     /**
      * @param string $fileName
      *

@@ -15,6 +15,7 @@
     "license": "AGPL-3.0",
     "name": "eduvpn/vpn-disco-signer",
     "require": {
+        "dnoegel/php-xdg-base-dir": "^0.1",
         "ext-date": "*",
         "ext-json": "*",
         "ext-libsodium": "*",

@@ -19,21 +19,21 @@
 require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 
 use SURFnet\VPN\Signer\Signer;
+use XdgBaseDir\Xdg;
 
 try {
-    $forceOverwrite = false;
+    $optionForce = false;
     foreach ($argv as $arg) {
         if ('--force' === $arg) {
-            $forceOverwrite = true;
+            $optionForce = true;
         }
     }
+
+    $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/config', dirname(__DIR__))
+        sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
     );
-
-    $publicKey = $signer->init($forceOverwrite);
-
-    echo sprintf('Public Key: %s', $publicKey).PHP_EOL;
+    $signer->init($optionForce);
 } catch (Exception $e) {
     echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }

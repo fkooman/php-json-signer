@@ -19,14 +19,16 @@
 require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 
 use SURFnet\VPN\Signer\Signer;
+use XdgBaseDir\Xdg;
 
 try {
     if (2 > $argc) {
         throw new Exception(sprintf('SYNTAX: %s file.json', $argv[0]));
     }
 
+    $xdg = new Xdg();
     $signer = new Signer(
-        sprintf('%s/config', dirname(__DIR__))
+        sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
     );
 
     $signer->sign($argv[1]);

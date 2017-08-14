@@ -22,22 +22,11 @@ use SURFnet\VPN\Signer\Signer;
 use XdgBaseDir\Xdg;
 
 try {
-    if (2 > $argc) {
-        throw new Exception(sprintf('SYNTAX: %s file.json', $argv[0]));
-    }
-
     $xdg = new Xdg();
     $signer = new Signer(
         sprintf('%s/vpn-disco-signer', $xdg->getHomeDataDir())
     );
-
-    if ($signer->verify($argv[1])) {
-        echo 'OK'.PHP_EOL;
-        exit(0);
-    } else {
-        echo 'FAIL'.PHP_EOL;
-        exit(1);
-    }
+    echo $signer->getPublicKey().PHP_EOL;
 } catch (Exception $e) {
     echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }
