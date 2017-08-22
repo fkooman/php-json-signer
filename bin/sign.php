@@ -39,7 +39,7 @@ use XdgBaseDir\Xdg;
 
 try {
     if (2 > $argc) {
-        throw new Exception(sprintf('SYNTAX: %s file.json', $argv[0]));
+        throw new Exception(sprintf('SYNTAX: %s file_1.json [file_2.json ... file_n.json]', $argv[0]));
     }
 
     $xdg = new Xdg();
@@ -47,7 +47,13 @@ try {
         sprintf('%s/php-json-signer', $xdg->getHomeDataDir())
     );
 
-    $signer->sign($argv[1]);
+    for ($i = 1; $i < count($argv); ++$i) {
+        try {
+            $signer->sign($argv[$i]);
+        } catch (RuntimeException $e) {
+            echo sprintf('ERROR: unable to sign "%s": %s', $argv[$i], $e->getMessage()).PHP_EOL;
+        }
+    }
 } catch (Exception $e) {
     echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }

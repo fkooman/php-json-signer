@@ -39,7 +39,7 @@ use XdgBaseDir\Xdg;
 
 try {
     if (2 > $argc) {
-        throw new Exception(sprintf('SYNTAX: %s file.json', $argv[0]));
+        throw new Exception(sprintf('SYNTAX: %s file_1.json [file_2.json ... file_n.json]', $argv[0]));
     }
 
     $xdg = new Xdg();
@@ -47,11 +47,22 @@ try {
         sprintf('%s/php-json-signer', $xdg->getHomeDataDir())
     );
 
-    if ($signer->verify($argv[1])) {
-        echo 'OK'.PHP_EOL;
-        exit(0);
-    } else {
-        echo 'FAIL'.PHP_EOL;
+    $failedAnywhere = false;
+
+    for ($i = 1; $i < count($argv); ++$i) {
+        try {
+            if ($signer->verify($argv[$i])) {
+                echo sprintf('OK: %s', $argv[$i]).PHP_EOL;
+            } else {
+                $failedAnywhere = true;
+                echo sprintf('FAIL: %s', $argv[$i]).PHP_EOL;
+            }
+        } catch (RuntimeException $e) {
+            echo sprintf('ERROR: unable to verify "%s": %s', $argv[$i], $e->getMessage()).PHP_EOL;
+        }
+    }
+
+    if ($failedAnywhere) {
         exit(1);
     }
 } catch (Exception $e) {
