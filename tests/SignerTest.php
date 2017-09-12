@@ -30,6 +30,9 @@ use PHPUnit_Framework_TestCase;
 
 class SignerTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @return void
+     */
     public function testSign()
     {
         $signer = new Signer(
@@ -54,6 +57,9 @@ class SignerTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testFailingSign()
     {
         $signer = new Signer(
@@ -70,6 +76,9 @@ class SignerTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($signer->verify($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function testInit()
     {
         $signer = new Signer(
@@ -93,6 +102,8 @@ class SignerTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
+     *
+     * @return void
      */
     public function testDoubleInit()
     {

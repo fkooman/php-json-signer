@@ -73,6 +73,8 @@ class Signer
 
     /**
      * @param \DateTime $dateTime
+     *
+     * @return void
      */
     public function setDateTime(DateTime $dateTime)
     {
@@ -81,6 +83,8 @@ class Signer
 
     /**
      * @param string $fileName the path to the JSON file to sign
+     *
+     * @return void
      */
     public function sign($fileName)
     {
@@ -124,6 +128,9 @@ class Signer
         return \Sodium\crypto_sign_verify_detached($fileSignature, $jsonText, $publicKey);
     }
 
+    /**
+     * @return string
+     */
     public function getPublicKey()
     {
         return self::readFile(sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE));
@@ -156,6 +163,8 @@ class Signer
     /**
      * @param string $fileName
      * @param string $fileContent
+     *
+     * @return void
      */
     private static function writeFile($fileName, $fileContent)
     {
@@ -165,7 +174,7 @@ class Signer
     }
 
     /**
-     * @param string
+     * @param string $jsonText
      *
      * @return array
      */
@@ -194,6 +203,8 @@ class Signer
 
     /**
      * @param string $dirName
+     *
+     * @return void
      */
     private static function createDir($dirName)
     {
