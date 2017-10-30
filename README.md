@@ -11,7 +11,7 @@ signature in the file itself.
 
 # Configure 
 
-The public and private key are stored in the XDG home data folder, typically
+The public and secret key are stored in the XDG home data folder, typically
 this will be `${HOME}/.local/share/php-json-signer`. They are automatically 
 generated on first use of the application.
 
