@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0 (...)
+## 2.0.0 (2017-10-30)
 - public and secret key are automatically generated on first use of 
   application or if they no longer exist, see [UPGRADING](UPGRADING.md)
 - public and secret key are now stored as binary, not as Base64 encoded string
