@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0 (...)
+- support PHP 7.2
+
 ## 2.0.0 (2017-10-30)
 - public and secret key are automatically generated on first use of 
   application or if they no longer exist, see [UPGRADING](UPGRADING.md)
