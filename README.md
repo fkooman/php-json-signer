@@ -11,15 +11,9 @@ signature in the file itself.
 
 # Configure 
 
-Generate a keypair:
-
-    $ php bin/init.php
-
-If a keypair already exists, an error will be thrown. You can force generating
-a new keypair using the `--force` parameter, or delete the keys first.
-
 The public and private key are stored in the XDG home data folder, typically
-this will be `${HOME}/.local/share/php-json-signer`.
+this will be `${HOME}/.local/share/php-json-signer`. They are automatically 
+generated on first use of the application.
 
 # Sign
 

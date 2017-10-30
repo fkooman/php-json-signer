@@ -99,19 +99,4 @@ class SignerTest extends PHPUnit_Framework_TestCase
             json_decode(file_get_contents($fileName), true)
         );
     }
-
-    /**
-     * @expectedException \RuntimeException
-     *
-     * @return void
-     */
-    public function testDoubleInit()
-    {
-        $signer = new Signer(
-            sprintf('%s/%s', sys_get_temp_dir(), mt_rand())
-        );
-        $signer->setDateTime(new DateTime('2017-01-01'));
-        $signer->init();
-        $signer->init();
-    }
 }

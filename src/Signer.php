@@ -34,41 +34,34 @@ class Signer
     const PUBLIC_KEY_FILE = 'public.key';
 
     /** @var string */
-    private $configDir;
+    private $dataDir;
 
     /** @var \DateTime */
     private $dateTime;
 
     /**
-     * @param string $configDir the directory that contains/will contain the public/private key
+     * @param string $dataDir
      */
-    public function __construct($configDir)
+    public function __construct($dataDir)
     {
-        self::createDir($configDir);
-        $this->configDir = $configDir;
+        $this->dataDir = $dataDir;
         $this->dateTime = new DateTime();
+        $this->init();
     }
 
     /**
-     * @param bool $forceOverwrite
-     *
-     * @return string
+     * @return void
      */
-    public function init($forceOverwrite = false)
+    public function init()
     {
-        $secretKeyFile = sprintf('%s/%s', $this->configDir, self::SECRET_KEY_FILE);
-        if (self::hasFile($secretKeyFile) && !$forceOverwrite) {
-            throw new RuntimeException(sprintf('"%s" already exists, use "--force" to overwrite', $secretKeyFile));
+        $secretKeyFile = sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
+        $publicKeyFile = sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
+        if (!self::hasFile($secretKeyFile)) {
+            self::createDir($this->dataDir);
+            $keyPair = \Sodium\crypto_sign_keypair();
+            self::writeFile($secretKeyFile, \Sodium\crypto_sign_secretkey($keyPair));
+            self::writeFile($publicKeyFile, \Sodium\crypto_sign_publickey($keyPair));
         }
-        $publicKeyFile = sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE);
-
-        $keyPair = \Sodium\crypto_sign_keypair();
-        $encodedPublicKey = Base64::encode(\Sodium\crypto_sign_publickey($keyPair));
-        $encodedSecretKey = Base64::encode(\Sodium\crypto_sign_secretkey($keyPair));
-        self::writeFile($secretKeyFile, $encodedSecretKey);
-        self::writeFile($publicKeyFile, $encodedPublicKey);
-
-        return $encodedPublicKey;
     }
 
     /**
@@ -88,7 +81,7 @@ class Signer
      */
     public function sign($fileName)
     {
-        $secretKey = Base64::decode(self::readFile(sprintf('%s/%s', $this->configDir, self::SECRET_KEY_FILE)));
+        $secretKey = self::readFile(sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE));
 
         // read the JSON data
         $jsonData = self::jsonDecode(self::readFile($fileName));
@@ -118,7 +111,7 @@ class Signer
      */
     public function verify($fileName)
     {
-        $publicKey = Base64::decode(self::readFile(sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE)));
+        $publicKey = self::readFile(sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE));
 
         // read the jsonText
         $jsonText = self::readFile($fileName);
@@ -133,7 +126,7 @@ class Signer
      */
     public function getPublicKey()
     {
-        return self::readFile(sprintf('%s/%s', $this->configDir, self::PUBLIC_KEY_FILE));
+        return Base64::encode(self::readFile(sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE)));
     }
 
     /**
