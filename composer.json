@@ -18,13 +18,16 @@
         "dnoegel/php-xdg-base-dir": "^0.1",
         "ext-date": "*",
         "ext-json": "*",
-        "ext-libsodium": "*",
         "ext-spl": "*",
         "paragonie/constant_time_encoding": "^1",
         "php": ">=5.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4|^5"
+    },
+    "suggest": {
+        "ext-libsodium": "PHP < 7.2 sodium implementation",
+        "ext-sodium": "PHP >= 7.2 sodium implementation"
     },
     "type": "project"
 }
