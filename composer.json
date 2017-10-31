@@ -19,7 +19,7 @@
         "ext-date": "*",
         "ext-json": "*",
         "ext-spl": "*",
-        "paragonie/constant_time_encoding": "^1",
+        "paragonie/constant_time_encoding": "^1|^2",
         "php": ">=5.4.0"
     },
     "require-dev": {

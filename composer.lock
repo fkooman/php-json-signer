@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa738fe10374e403d75fb44fdb7b1ee8",
+    "content-hash": "6a1ef53f8c9681ecf2ab96e3f8f9e626",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -41,24 +41,24 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v1.0.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "d96e63b79a7135a65659ba5b1cb02826172bfedd"
+                "reference": "9e7d88e6e4015c2f06a3fa22f06e1d5faa77e6c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d96e63b79a7135a65659ba5b1cb02826172bfedd",
-                "reference": "d96e63b79a7135a65659ba5b1cb02826172bfedd",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/9e7d88e6e4015c2f06a3fa22f06e1d5faa77e6c4",
+                "reference": "9e7d88e6e4015c2f06a3fa22f06e1d5faa77e6c4",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.3|^7"
+                "php": "^7"
             },
             "require-dev": {
-                "paragonie/random_compat": "^1.4|^2.0",
-                "phpunit/phpunit": "4.*|5.*"
+                "phpunit/phpunit": "^6",
+                "vimeo/psalm": "^0.3|^1"
             },
             "type": "library",
             "autoload": {
@@ -99,7 +99,7 @@
                 "hex2bin",
                 "rfc4648"
             ],
-            "time": "2016-06-13T01:00:24+00:00"
+            "time": "2017-09-22T14:55:37+00:00"
         }
     ],
     "packages-dev": [
