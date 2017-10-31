@@ -1,7 +1,7 @@
 # Changelog
 
-## 2.1.0 (...)
-- support PHP 7.2
+## 2.1.0 (2017-10-31)
+- support PHP 7.2 by using `SodiumCompat`
 
 ## 2.0.0 (2017-10-30)
 - public and secret key are automatically generated on first use of 
