@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 (...)
+## 3.0.0 (2017-11-20)
 - support multiple key-pairs by using `--name NAME` flag
 - wrap all tools in 1 executable and introduce `--sign`, `--verify` and 
   `--show` flags
