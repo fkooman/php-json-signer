@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0 (...)
+- support multiple key-pairs by using `--name NAME` flag
+- wrap all tools in 1 executable and introduce `--sign`, `--verify` and 
+  `--show` flags
+
 ## 2.1.0 (2017-10-31)
 - support PHP 7.2 by using `SodiumCompat`
 

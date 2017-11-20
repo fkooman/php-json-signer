@@ -1,5 +1,9 @@
 # Upgrading
 
+## 3.0.0
+
+Only the tool syntax has changed. See [README](README.md).
+
 ## 2.0.0
 
 In >= 2.0.0 the public and secret key are stored as binary, no longer Base64 
