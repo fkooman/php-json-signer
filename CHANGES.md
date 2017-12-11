@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.1 (...)
+## 3.0.1 (2017-12-11)
 - rework (lib)sodium compatiblity
 - remove dependency on `dnoegel/php-xdg-base-dir`
 - support PHPUnit 6
