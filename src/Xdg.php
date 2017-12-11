@@ -28,6 +28,9 @@ use RuntimeException;
 
 class Xdg
 {
+    /**
+     * @return string
+     */
     public static function getDataHome()
     {
         $dataHome = getenv('XDG_DATA_HOME');
