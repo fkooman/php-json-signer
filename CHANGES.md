@@ -2,6 +2,8 @@
 
 ## 3.0.1 (...)
 - rework (lib)sodium compatiblity
+- remove dependency on `dnoegel/php-xdg-base-dir`
+- support PHPUnit 6
 
 ## 3.0.0 (2017-11-20)
 - support multiple key-pairs by using `--name NAME` flag

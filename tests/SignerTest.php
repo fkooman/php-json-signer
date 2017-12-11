@@ -26,9 +26,9 @@ namespace fkooman\JsonSigner\Tests;
 
 use DateTime;
 use fkooman\JsonSigner\Signer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class SignerTest extends PHPUnit_Framework_TestCase
+class SignerTest extends TestCase
 {
     /**
      * @return void

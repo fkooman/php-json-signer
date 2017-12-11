@@ -35,7 +35,7 @@ foreach ($autoloadFiles as $autoloadFile) {
 }
 
 use fkooman\JsonSigner\Signer;
-use XdgBaseDir\Xdg;
+use fkooman\JsonSigner\Xdg;
 
 $appExec = $argv[0];
 $syntaxMsg = <<<EOT
@@ -80,9 +80,7 @@ try {
         $fileList[] = $argv[$i];
     }
 
-    $xdg = new Xdg();
-    $dataDir = sprintf('%s/php-json-signer', $xdg->getHomeDataDir());
-
+    $dataDir = sprintf('%s/php-json-signer', Xdg::getDataHome());
     $signer = new Signer(
         null === $keyPairName ? $dataDir : sprintf('%s/%s', $dataDir, $keyPairName)
     );
