@@ -22,17 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-$autoloadFiles = [
-    sprintf('%s/src/autoload.php', dirname(__DIR__)),
-    sprintf('%s/vendor/autoload.php', dirname(__DIR__)),
-];
-
-foreach ($autoloadFiles as $autoloadFile) {
-    if (@file_exists($autoloadFile)) {
-        require_once $autoloadFile;
-        break;
-    }
-}
+$baseDir = dirname(__DIR__);
+/** @psalm-suppress UnresolvableInclude */
+require_once sprintf('%s/vendor/autoload.php', $baseDir);
 
 use fkooman\JsonSigner\Signer;
 use fkooman\JsonSigner\Xdg;
