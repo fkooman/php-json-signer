@@ -22,9 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-$baseDir = dirname(__DIR__);
+
 /** @psalm-suppress UnresolvableInclude */
-require_once sprintf('%s/vendor/autoload.php', $baseDir);
+require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 
 use fkooman\JsonSigner\Signer;
 use fkooman\JsonSigner\Xdg;
