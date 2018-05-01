@@ -1,7 +1,7 @@
 <?php
 
-/**
- * Copyright (c) 2017 François Kooman <fkooman@tuxed.net>.
+/*
+ * Copyright (c) 2017, 2018 François Kooman <fkooman@tuxed.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -90,7 +90,7 @@ class Signer
         if (!array_key_exists('seq', $jsonData)) {
             $jsonData['seq'] = 0;
         }
-        $jsonData['seq'] += 1;
+        ++$jsonData['seq'];
 
         // add time of signing (UTC)
         $jsonData['signed_at'] = $this->dateTime->format('Y-m-d H:i:s');
