@@ -33,15 +33,15 @@ class Xdg
      */
     public static function getDataHome()
     {
-        $dataHome = getenv('XDG_DATA_HOME');
+        $dataHome = \getenv('XDG_DATA_HOME');
         if (false !== $dataHome) {
             return $dataHome;
         }
 
-        if (false === $homeDir = getenv('HOME')) {
+        if (false === $homeDir = \getenv('HOME')) {
             throw new RuntimeException('environment variable "HOME" not set');
         }
 
-        return sprintf('%s/.local/share', $homeDir);
+        return \sprintf('%s/.local/share', $homeDir);
     }
 }

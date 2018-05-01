@@ -54,8 +54,8 @@ class Signer
      */
     public function init()
     {
-        $secretKeyFile = sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
-        $publicKeyFile = sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
+        $secretKeyFile = \sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
+        $publicKeyFile = \sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
         if (!self::hasFile($secretKeyFile)) {
             self::createDir($this->dataDir);
             $keyPair = sodium_crypto_sign_keypair();
@@ -81,13 +81,13 @@ class Signer
      */
     public function sign($fileName)
     {
-        $secretKey = self::readFile(sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE));
+        $secretKey = self::readFile(\sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE));
 
         // read the JSON data
         $jsonData = self::jsonDecode(self::readFile($fileName));
 
         // increment the "seq" key or add it if it was not there
-        if (!array_key_exists('seq', $jsonData)) {
+        if (!\array_key_exists('seq', $jsonData)) {
             $jsonData['seq'] = 0;
         }
         ++$jsonData['seq'];
@@ -101,7 +101,7 @@ class Signer
 
         // calculate the signature and write it to file
         $fileSignature = sodium_crypto_sign_detached($jsonText, $secretKey);
-        self::writeFile(sprintf('%s.sig', $fileName), Base64::encode($fileSignature));
+        self::writeFile(\sprintf('%s.sig', $fileName), Base64::encode($fileSignature));
     }
 
     /**
@@ -111,12 +111,12 @@ class Signer
      */
     public function verify($fileName)
     {
-        $publicKey = self::readFile(sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE));
+        $publicKey = self::readFile(\sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE));
 
         // read the jsonText
         $jsonText = self::readFile($fileName);
         // read the signature
-        $fileSignature = Base64::decode(self::readFile(sprintf('%s.sig', $fileName)));
+        $fileSignature = Base64::decode(self::readFile(\sprintf('%s.sig', $fileName)));
 
         return sodium_crypto_sign_verify_detached($fileSignature, $jsonText, $publicKey);
     }
@@ -126,7 +126,7 @@ class Signer
      */
     public function getPublicKey()
     {
-        return Base64::encode(self::readFile(sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE)));
+        return Base64::encode(self::readFile(\sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE)));
     }
 
     /**
@@ -136,7 +136,7 @@ class Signer
      */
     private static function hasFile($fileName)
     {
-        return @file_exists($fileName);
+        return @\file_exists($fileName);
     }
 
     /**
@@ -146,8 +146,8 @@ class Signer
      */
     private static function readFile($fileName)
     {
-        if (false === $fileContent = @file_get_contents($fileName)) {
-            throw new RuntimeException(sprintf('unable to read "%s"', $fileName));
+        if (false === $fileContent = @\file_get_contents($fileName)) {
+            throw new RuntimeException(\sprintf('unable to read "%s"', $fileName));
         }
 
         return $fileContent;
@@ -161,8 +161,8 @@ class Signer
      */
     private static function writeFile($fileName, $fileContent)
     {
-        if (false === @file_put_contents($fileName, $fileContent)) {
-            throw new RuntimeException(sprintf('unable to write "%s"', $fileName));
+        if (false === @\file_put_contents($fileName, $fileContent)) {
+            throw new RuntimeException(\sprintf('unable to write "%s"', $fileName));
         }
     }
 
@@ -173,7 +173,7 @@ class Signer
      */
     private static function jsonDecode($jsonText)
     {
-        if (null === $jsonData = json_decode($jsonText, true)) {
+        if (null === $jsonData = \json_decode($jsonText, true)) {
             throw new RuntimeException('unable to decode JSON');
         }
 
@@ -187,7 +187,7 @@ class Signer
      */
     private static function jsonEncode(array $jsonData)
     {
-        if (false === $jsonText = json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) {
+        if (false === $jsonText = \json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) {
             throw new RuntimeException('unable to encode JSON');
         }
 
@@ -201,9 +201,9 @@ class Signer
      */
     private static function createDir($dirName)
     {
-        if (!@file_exists($dirName)) {
-            if (false === @mkdir($dirName, 0700, true)) {
-                throw new RuntimeException(sprintf('unable to create directory "%s"', $dirName));
+        if (!@\file_exists($dirName)) {
+            if (false === @\mkdir($dirName, 0700, true)) {
+                throw new RuntimeException(\sprintf('unable to create directory "%s"', $dirName));
             }
         }
     }

@@ -24,7 +24,7 @@
  */
 
 /** @psalm-suppress UnresolvableInclude */
-require_once sprintf('%s/vendor/autoload.php', dirname(__DIR__));
+require_once \sprintf('%s/vendor/autoload.php', \dirname(__DIR__));
 
 use fkooman\JsonSigner\Signer;
 use fkooman\JsonSigner\Xdg;
@@ -46,7 +46,7 @@ try {
     $nextIsName = false;
     $keyPairName = null;
     $appAction = null;
-    for ($i = 1; $i < count($argv); ++$i) {
+    for ($i = 1; $i < \count($argv); ++$i) {
         if ($nextIsName) {
             $keyPairName = $argv[$i];
             $nextIsName = false;
@@ -72,9 +72,9 @@ try {
         $fileList[] = $argv[$i];
     }
 
-    $dataDir = sprintf('%s/php-json-signer', Xdg::getDataHome());
+    $dataDir = \sprintf('%s/php-json-signer', Xdg::getDataHome());
     $signer = new Signer(
-        null === $keyPairName ? $dataDir : sprintf('%s/%s', $dataDir, $keyPairName)
+        null === $keyPairName ? $dataDir : \sprintf('%s/%s', $dataDir, $keyPairName)
     );
 
     switch ($appAction) {
@@ -86,7 +86,7 @@ try {
                 try {
                     $signer->sign($fileName);
                 } catch (RuntimeException $e) {
-                    echo sprintf('ERROR: unable to sign "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
+                    echo \sprintf('ERROR: unable to sign "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
                 }
             }
             break;
@@ -95,13 +95,13 @@ try {
             foreach ($fileList as $fileName) {
                 try {
                     if ($signer->verify($fileName)) {
-                        echo sprintf('OK: %s', $fileName).PHP_EOL;
+                        echo \sprintf('OK: %s', $fileName).PHP_EOL;
                     } else {
                         $failedAnywhere = true;
-                        echo sprintf('FAIL: %s', $fileName).PHP_EOL;
+                        echo \sprintf('FAIL: %s', $fileName).PHP_EOL;
                     }
                 } catch (RuntimeException $e) {
-                    echo sprintf('ERROR: unable to verify "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
+                    echo \sprintf('ERROR: unable to verify "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
                 }
             }
 
@@ -113,5 +113,5 @@ try {
             throw new Exception($syntaxMsg);
     }
 } catch (Exception $e) {
-    echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
+    echo \sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }

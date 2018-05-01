@@ -36,11 +36,11 @@ class SignerTest extends TestCase
     public function testSign()
     {
         $signer = new Signer(
-            sprintf('%s/config', __DIR__)
+            \sprintf('%s/config', __DIR__)
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
-        $fileName = tempnam(sys_get_temp_dir(), 'tst');
-        file_put_contents($fileName, file_get_contents(sprintf('%s/data/foo.json', __DIR__)));
+        $fileName = \tempnam(\sys_get_temp_dir(), 'tst');
+        \file_put_contents($fileName, \file_get_contents(\sprintf('%s/data/foo.json', __DIR__)));
         $signer->sign($fileName);
         $this->assertTrue($signer->verify($fileName));
         $this->assertSame(
@@ -49,11 +49,11 @@ class SignerTest extends TestCase
                 'seq' => 1,
                 'signed_at' => '2017-01-01 00:00:00',
             ],
-            json_decode(file_get_contents($fileName), true)
+            \json_decode(\file_get_contents($fileName), true)
         );
         $this->assertSame(
             'NGc7L2MGWhuw5MAk/Qp7v1JGhSfzFUOqDvo8YXyiIFV35jEPjI2AMn3KB1PKqvwy5lfgERq+48oC1mqfb/kjBg==',
-            file_get_contents(sprintf('%s.sig', $fileName))
+            \file_get_contents(\sprintf('%s.sig', $fileName))
         );
     }
 
@@ -63,16 +63,16 @@ class SignerTest extends TestCase
     public function testFailingSign()
     {
         $signer = new Signer(
-            sprintf('%s/config', __DIR__)
+            \sprintf('%s/config', __DIR__)
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
-        $fileName = tempnam(sys_get_temp_dir(), 'tst');
-        file_put_contents($fileName, file_get_contents(sprintf('%s/data/foo.json', __DIR__)));
+        $fileName = \tempnam(\sys_get_temp_dir(), 'tst');
+        \file_put_contents($fileName, \file_get_contents(\sprintf('%s/data/foo.json', __DIR__)));
         $signer->sign($fileName);
-        $jsonData = json_decode(file_get_contents($fileName), true);
+        $jsonData = \json_decode(\file_get_contents($fileName), true);
         // increase the SEQ to break the signature...
         ++$jsonData['seq'];
-        file_put_contents($fileName, json_encode($jsonData, JSON_PRETTY_PRINT));
+        \file_put_contents($fileName, \json_encode($jsonData, JSON_PRETTY_PRINT));
         $this->assertFalse($signer->verify($fileName));
     }
 
@@ -82,12 +82,12 @@ class SignerTest extends TestCase
     public function testInit()
     {
         $signer = new Signer(
-            sprintf('%s/%s', sys_get_temp_dir(), mt_rand())
+            \sprintf('%s/%s', \sys_get_temp_dir(), \mt_rand())
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
         $signer->init();
-        $fileName = tempnam(sys_get_temp_dir(), 'tst');
-        file_put_contents($fileName, file_get_contents(sprintf('%s/data/foo.json', __DIR__)));
+        $fileName = \tempnam(\sys_get_temp_dir(), 'tst');
+        \file_put_contents($fileName, \file_get_contents(\sprintf('%s/data/foo.json', __DIR__)));
         $signer->sign($fileName);
         $this->assertTrue($signer->verify($fileName));
         $this->assertSame(
@@ -96,7 +96,7 @@ class SignerTest extends TestCase
                 'seq' => 1,
                 'signed_at' => '2017-01-01 00:00:00',
             ],
-            json_decode(file_get_contents($fileName), true)
+            \json_decode(\file_get_contents($fileName), true)
         );
     }
 }
