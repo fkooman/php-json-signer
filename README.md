@@ -5,7 +5,7 @@ signature in the file itself.
 
 # Install 
     
-    $ git clone https://git.tuxed.net/fkooman/php-json-signer.git
+    $ git clone https://git.tuxed.net/fkooman/php-json-signer
     $ cd php-json-signer
     $ composer install
 
