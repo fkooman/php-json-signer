@@ -58,9 +58,9 @@ class Signer
         $publicKeyFile = \sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
         if (!self::hasFile($secretKeyFile)) {
             self::createDir($this->dataDir);
-            $keyPair = sodium_crypto_sign_keypair();
-            self::writeFile($secretKeyFile, sodium_crypto_sign_secretkey($keyPair));
-            self::writeFile($publicKeyFile, sodium_crypto_sign_publickey($keyPair));
+            $keyPair = \sodium_crypto_sign_keypair();
+            self::writeFile($secretKeyFile, \sodium_crypto_sign_secretkey($keyPair));
+            self::writeFile($publicKeyFile, \sodium_crypto_sign_publickey($keyPair));
         }
     }
 
@@ -100,7 +100,7 @@ class Signer
         self::writeFile($fileName, $jsonText);
 
         // calculate the signature and write it to file
-        $fileSignature = sodium_crypto_sign_detached($jsonText, $secretKey);
+        $fileSignature = \sodium_crypto_sign_detached($jsonText, $secretKey);
         self::writeFile(\sprintf('%s.sig', $fileName), Base64::encode($fileSignature));
     }
 
@@ -118,7 +118,7 @@ class Signer
         // read the signature
         $fileSignature = Base64::decode(self::readFile(\sprintf('%s.sig', $fileName)));
 
-        return sodium_crypto_sign_verify_detached($fileSignature, $jsonText, $publicKey);
+        return \sodium_crypto_sign_verify_detached($fileSignature, $jsonText, $publicKey);
     }
 
     /**
