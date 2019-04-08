@@ -34,6 +34,9 @@ use PHPUnit\Framework\TestCase;
  */
 final class SignerTest extends TestCase
 {
+    /**
+     * @return void
+     */
     public function testSign()
     {
         $signer = new Signer(
@@ -58,6 +61,9 @@ final class SignerTest extends TestCase
         );
     }
 
+    /**
+     * @return void
+     */
     public function testFailingSign()
     {
         $signer = new Signer(
@@ -74,6 +80,9 @@ final class SignerTest extends TestCase
         $this->assertFalse($signer->verify($fileName));
     }
 
+    /**
+     * @return void
+     */
     public function testInit()
     {
         $signer = new Signer(
