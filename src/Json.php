@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017, 2018 François Kooman <fkooman@tuxed.net>
+ * Copyright (c) 2019 François Kooman <fkooman@tuxed.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,13 +35,13 @@ class Json
      */
     public static function encode(array $jsonData)
     {
-        $jsonString = \json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $jsonString = json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         // 5.5.0 	The return value on failure was changed from null string to FALSE.
         if (false === $jsonString || 'null' === $jsonString) {
             throw new JsonException(
-                \sprintf(
+                sprintf(
                     'unable to encode JSON, error code "%d"',
-                    \json_last_error()
+                    json_last_error()
                 )
             );
         }
@@ -57,12 +57,12 @@ class Json
     public static function decode($jsonString)
     {
         /** @psalm-suppress MixedAssignment */
-        $jsonData = \json_decode($jsonString, true);
-        if (null === $jsonData && JSON_ERROR_NONE !== \json_last_error()) {
+        $jsonData = json_decode($jsonString, true);
+        if (null === $jsonData && JSON_ERROR_NONE !== json_last_error()) {
             throw new JsonException(
-                \sprintf(
+                sprintf(
                     'unable to decode JSON, error code "%d"',
-                    \json_last_error()
+                    json_last_error()
                 )
             );
         }

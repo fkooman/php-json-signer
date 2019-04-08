@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-require_once \dirname(__DIR__).'/vendor/autoload.php';
+require_once dirname(__DIR__).'/vendor/autoload.php';
 
 use fkooman\JsonSigner\Signer;
 use fkooman\JsonSigner\Xdg;
@@ -31,9 +31,9 @@ use fkooman\JsonSigner\Xdg;
 $appExec = $argv[0];
 $syntaxMsg = <<<EOT
 SYNTAX: 
-    $appExec --sign   [--name N] file_1.json [file_2.json ... file_n.json]
-    $appExec --verify [--name N] file_1.json [file_2.json ... file_n.json]
-    $appExec --show   [--name N]
+    ${appExec} --sign   [--name N] file_1.json [file_2.json ... file_n.json]
+    ${appExec} --verify [--name N] file_1.json [file_2.json ... file_n.json]
+    ${appExec} --show   [--name N]
 EOT;
 
 try {
@@ -45,72 +45,80 @@ try {
     $nextIsName = false;
     $keyPairName = null;
     $appAction = null;
-    for ($i = 1; $i < \count($argv); ++$i) {
+    for ($i = 1; $i < count($argv); ++$i) {
         if ($nextIsName) {
             $keyPairName = $argv[$i];
             $nextIsName = false;
+
             continue;
         }
         if ('--sign' === $argv[$i]) {
             $appAction = 'sign';
+
             continue;
         }
         if ('--verify' === $argv[$i]) {
             $appAction = 'verify';
+
             continue;
         }
         if ('--show' === $argv[$i]) {
             $appAction = 'show';
+
             continue;
         }
         if ('--name' === $argv[$i]) {
             $nextIsName = true;
+
             continue;
         }
 
         $fileList[] = $argv[$i];
     }
 
-    $dataDir = \sprintf('%s/php-json-signer', Xdg::getDataHome());
+    $dataDir = sprintf('%s/php-json-signer', Xdg::getDataHome());
     $signer = new Signer(
-        null === $keyPairName ? $dataDir : \sprintf('%s/%s', $dataDir, $keyPairName)
+        null === $keyPairName ? $dataDir : sprintf('%s/%s', $dataDir, $keyPairName)
     );
 
     switch ($appAction) {
         case 'show':
             echo $signer->getPublicKey().PHP_EOL;
+
             break;
         case 'sign':
             foreach ($fileList as $fileName) {
                 try {
                     $signer->sign($fileName);
                 } catch (RuntimeException $e) {
-                    echo \sprintf('ERROR: unable to sign "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
+                    echo sprintf('ERROR: unable to sign "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
                 }
             }
+
             break;
         case 'verify':
             $failedAnywhere = false;
             foreach ($fileList as $fileName) {
                 try {
                     if ($signer->verify($fileName)) {
-                        echo \sprintf('OK: %s', $fileName).PHP_EOL;
+                        echo sprintf('OK: %s', $fileName).PHP_EOL;
                     } else {
                         $failedAnywhere = true;
-                        echo \sprintf('FAIL: %s', $fileName).PHP_EOL;
+                        echo sprintf('FAIL: %s', $fileName).PHP_EOL;
                     }
                 } catch (RuntimeException $e) {
-                    echo \sprintf('ERROR: unable to verify "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
+                    echo sprintf('ERROR: unable to verify "%s": %s', $fileName, $e->getMessage()).PHP_EOL;
                 }
             }
 
             if ($failedAnywhere) {
                 exit(1);
             }
+
             break;
         default:
             throw new Exception($syntaxMsg);
     }
 } catch (Exception $e) {
-    echo \sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
+    echo sprintf('ERROR: %s', $e->getMessage()).PHP_EOL;
 }

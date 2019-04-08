@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017, 2018 François Kooman <fkooman@tuxed.net>
+ * Copyright (c) 2019 François Kooman <fkooman@tuxed.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,15 +33,15 @@ class Xdg
      */
     public static function getDataHome()
     {
-        $dataHome = \getenv('XDG_DATA_HOME');
+        $dataHome = getenv('XDG_DATA_HOME');
         if (false !== $dataHome) {
             return $dataHome;
         }
 
-        if (false === $homeDir = \getenv('HOME')) {
+        if (false === $homeDir = getenv('HOME')) {
             throw new RuntimeException('environment variable "HOME" not set');
         }
 
-        return \sprintf('%s/.local/share', $homeDir);
+        return sprintf('%s/.local/share', $homeDir);
     }
 }

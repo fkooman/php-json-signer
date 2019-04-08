@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2017, 2018 François Kooman <fkooman@tuxed.net>
+ * Copyright (c) 2019 François Kooman <fkooman@tuxed.net>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@
  *
  * @see https://github.com/paragonie/sodium_compat
  */
-if (!\is_callable('sodium_crypto_sign_detached')) {
+if (!is_callable('sodium_crypto_sign_detached')) {
     /**
      * @param string $message
      * @param string $secretKey
@@ -43,7 +43,7 @@ if (!\is_callable('sodium_crypto_sign_detached')) {
     }
 }
 
-if (!\is_callable('sodium_crypto_sign_verify_detached')) {
+if (!is_callable('sodium_crypto_sign_verify_detached')) {
     /**
      * @param string $signature
      * @param string $message
@@ -57,7 +57,7 @@ if (!\is_callable('sodium_crypto_sign_verify_detached')) {
     }
 }
 
-if (!\is_callable('sodium_crypto_sign_keypair')) {
+if (!is_callable('sodium_crypto_sign_keypair')) {
     /**
      * @return string
      */
@@ -67,7 +67,7 @@ if (!\is_callable('sodium_crypto_sign_keypair')) {
     }
 }
 
-if (!\is_callable('sodium_crypto_sign_publickey')) {
+if (!is_callable('sodium_crypto_sign_publickey')) {
     /**
      * @param string $keypair
      *
@@ -79,7 +79,7 @@ if (!\is_callable('sodium_crypto_sign_publickey')) {
     }
 }
 
-if (!\is_callable('sodium_crypto_sign_secretkey')) {
+if (!is_callable('sodium_crypto_sign_secretkey')) {
     /**
      * @param string $keypair
      *
