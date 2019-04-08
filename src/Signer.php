@@ -84,7 +84,7 @@ class Signer
         $secretKey = self::readFile(\sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE));
 
         // read the JSON data
-        $jsonData = self::jsonDecode(self::readFile($fileName));
+        $jsonData = Json::decode(self::readFile($fileName));
 
         // increment the "seq" key or add it if it was not there
         if (!\array_key_exists('seq', $jsonData)) {
@@ -96,7 +96,7 @@ class Signer
         $jsonData['signed_at'] = $this->dateTime->format('Y-m-d H:i:s');
 
         // write the JSON back to file
-        $jsonText = self::jsonEncode($jsonData);
+        $jsonText = Json::encode($jsonData);
         self::writeFile($fileName, $jsonText);
 
         // calculate the signature and write it to file
@@ -164,34 +164,6 @@ class Signer
         if (false === @\file_put_contents($fileName, $fileContent)) {
             throw new RuntimeException(\sprintf('unable to write "%s"', $fileName));
         }
-    }
-
-    /**
-     * @param string $jsonText
-     *
-     * @return array
-     */
-    private static function jsonDecode($jsonText)
-    {
-        if (null === $jsonData = \json_decode($jsonText, true)) {
-            throw new RuntimeException('unable to decode JSON');
-        }
-
-        return $jsonData;
-    }
-
-    /**
-     * @param array $jsonData
-     *
-     * @return string
-     */
-    private static function jsonEncode(array $jsonData)
-    {
-        if (false === $jsonText = \json_encode($jsonData, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) {
-            throw new RuntimeException('unable to encode JSON');
-        }
-
-        return $jsonText;
     }
 
     /**
