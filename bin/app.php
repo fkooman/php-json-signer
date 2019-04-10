@@ -30,9 +30,9 @@ use fkooman\JsonSigner\Xdg;
 $appExec = $argv[0];
 $syntaxMsg = <<<EOT
 SYNTAX: 
-    ${appExec} --sign   [--name N] file_1.json [file_2.json ... file_n.json]
-    ${appExec} --verify [--name N] file_1.json [file_2.json ... file_n.json]
-    ${appExec} --show   [--name N]
+    ${appExec} --sign   [--create] --name N file_1.json [file_2.json ... file_n.json]
+    ${appExec} --verify [--create] --name N file_1.json [file_2.json ... file_n.json]
+    ${appExec} --show   [--create] --name N
 EOT;
 
 try {
@@ -42,12 +42,18 @@ try {
 
     $fileList = [];
     $nextIsName = false;
+    $createKey = false;
     $keyPairName = null;
     $appAction = null;
     for ($i = 1; $i < count($argv); ++$i) {
         if ($nextIsName) {
             $keyPairName = $argv[$i];
             $nextIsName = false;
+
+            continue;
+        }
+        if ('--create' === $argv[$i]) {
+            $createKey = true;
 
             continue;
         }
@@ -75,9 +81,14 @@ try {
         $fileList[] = $argv[$i];
     }
 
+    if (null === $keyPairName) {
+        throw new RuntimeException('missing "--name" option');
+    }
+
     $dataDir = sprintf('%s/php-json-signer', Xdg::getDataHome());
     $signer = new Signer(
-        null === $keyPairName ? $dataDir : sprintf('%s/%s', $dataDir, $keyPairName)
+        sprintf('%s/%s', $dataDir, $keyPairName),
+        $createKey
     );
 
     switch ($appAction) {

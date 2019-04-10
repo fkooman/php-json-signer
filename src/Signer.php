@@ -41,22 +41,28 @@ class Signer
 
     /**
      * @param string $dataDir
+     * @param bool   $createKey
      */
-    public function __construct($dataDir)
+    public function __construct($dataDir, $createKey)
     {
         $this->dataDir = $dataDir;
         $this->dateTime = new DateTime();
-        $this->init();
+        $this->init($createKey);
     }
 
     /**
+     * @param bool $createKey
+     *
      * @return void
      */
-    public function init()
+    public function init($createKey)
     {
         $secretKeyFile = sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
         $publicKeyFile = sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
         if (!self::hasFile($secretKeyFile)) {
+            if (!$createKey) {
+                throw new RuntimeException(sprintf('key "%s" does not exist', $secretKeyFile));
+            }
             self::createDir($this->dataDir);
             $keyPair = sodium_crypto_sign_keypair();
             self::writeFile($secretKeyFile, sodium_crypto_sign_secretkey($keyPair));

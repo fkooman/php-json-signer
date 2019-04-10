@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.0.0 (...)
+- no longer have a "default" key, always require `--name N`
+- no longer automatically create keypair when it is missing, requires
+  the `--create` option to create key
+- do not override key when specifying `--create` if a key already exists
+
 ## 3.0.2 (2017-12-12)
 - cleanup autoloading
 
