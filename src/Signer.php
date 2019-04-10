@@ -51,26 +51,6 @@ class Signer
     }
 
     /**
-     * @param bool $createKey
-     *
-     * @return void
-     */
-    public function init($createKey)
-    {
-        $secretKeyFile = sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
-        $publicKeyFile = sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
-        if (!self::hasFile($secretKeyFile)) {
-            if (!$createKey) {
-                throw new RuntimeException(sprintf('key "%s" does not exist', $secretKeyFile));
-            }
-            self::createDir($this->dataDir);
-            $keyPair = sodium_crypto_sign_keypair();
-            self::writeFile($secretKeyFile, sodium_crypto_sign_secretkey($keyPair));
-            self::writeFile($publicKeyFile, sodium_crypto_sign_publickey($keyPair));
-        }
-    }
-
-    /**
      * @param \DateTime $dateTime
      *
      * @return void
@@ -133,6 +113,26 @@ class Signer
     public function getPublicKey()
     {
         return Base64::encode(self::readFile(sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE)));
+    }
+
+    /**
+     * @param bool $createKey
+     *
+     * @return void
+     */
+    private function init($createKey)
+    {
+        $secretKeyFile = sprintf('%s/%s', $this->dataDir, self::SECRET_KEY_FILE);
+        $publicKeyFile = sprintf('%s/%s', $this->dataDir, self::PUBLIC_KEY_FILE);
+        if (!self::hasFile($secretKeyFile)) {
+            if (!$createKey) {
+                throw new RuntimeException(sprintf('key "%s" does not exist', $secretKeyFile));
+            }
+            self::createDir($this->dataDir);
+            $keyPair = sodium_crypto_sign_keypair();
+            self::writeFile($secretKeyFile, sodium_crypto_sign_secretkey($keyPair));
+            self::writeFile($publicKeyFile, sodium_crypto_sign_publickey($keyPair));
+        }
     }
 
     /**

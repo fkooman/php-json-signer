@@ -40,7 +40,8 @@ final class SignerTest extends TestCase
     public function testSign()
     {
         $signer = new Signer(
-            sprintf('%s/config', __DIR__)
+            sprintf('%s/config', __DIR__),
+            false
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
         $fileName = tempnam(sys_get_temp_dir(), 'tst');
@@ -67,7 +68,8 @@ final class SignerTest extends TestCase
     public function testFailingSign()
     {
         $signer = new Signer(
-            sprintf('%s/config', __DIR__)
+            sprintf('%s/config', __DIR__),
+            false
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
         $fileName = tempnam(sys_get_temp_dir(), 'tst');
@@ -86,10 +88,10 @@ final class SignerTest extends TestCase
     public function testInit()
     {
         $signer = new Signer(
-            sprintf('%s/%s', sys_get_temp_dir(), mt_rand())
+            sprintf('%s/%s', sys_get_temp_dir(), mt_rand()),
+            true // create key when it is missing
         );
         $signer->setDateTime(new DateTime('2017-01-01'));
-        $signer->init();
         $fileName = tempnam(sys_get_temp_dir(), 'tst');
         file_put_contents($fileName, file_get_contents(sprintf('%s/data/foo.json', __DIR__)));
         $signer->sign($fileName);
