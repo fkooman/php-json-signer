@@ -1,3 +1,14 @@
+**Summary**: Sign JSON files with Ed25519 signature for eduVPN
+
+**Description**: This application can be used to sign JSON files, by adding 
+some fields that can be used to determine their time of signing and the 
+sequence number. The signature is "detached" so no complicated file syntax is 
+needed to store the signature in the file itself.
+
+**License**: MIT
+
+# Introduction
+
 This application can be used to sign JSON files, by adding some fields that can
 be used to determine their time of signing and the sequence number. The 
 signature is "detached" so no complicated file syntax is needed to store the 

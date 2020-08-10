@@ -18,7 +18,7 @@
             "fkooman\\JsonSigner\\Tests\\": "tests/"
         }
     },
-    "description": "JSON Signer",
+    "description": "Sign JSON files with Ed25519 signature for eduVPN",
     "license": "MIT",
     "name": "fkooman/php-json-signer",
     "require": {
